@@ -1,4 +1,4 @@
-### UC01 — Realizar Login
+### UC01 - Realizar Login
 ### Ator Principal
 Usuário (Aluno, Recepcionista, Instrutor, Gerente)
 ### Objetivo
@@ -12,7 +12,7 @@ Permitir que o usuário acesse o sistema com segurança.
 2. O sistema valida as credenciais.
 3. O sistema identifica o perfil e redireciona para a interface correspondente.
 ### Fluxos Alternativos
-- **A1 — Senha incorreta:** O sistema exibe mensagem de erro.
+- **A1 - Senha incorreta:** O sistema exibe mensagem de erro.
 ### RF Relacionados
 - RF01
 ### RNF Relacionados
@@ -22,7 +22,7 @@ Permitir que o usuário acesse o sistema com segurança.
 
 ---
 
-### UC02 — Cadastrar Aluno
+### UC02 - Cadastrar Aluno
 ### Ator Principal
 Recepcionista
 ### Objetivo
@@ -44,7 +44,7 @@ Registrar um novo aluno e seus dados contratuais.
 
 ---
 
-### UC03 — Criar Novo Plano
+### UC03 - Criar Novo Plano
 ### Ator Principal
 Gerente
 ### Objetivo
@@ -63,7 +63,7 @@ Configurar novas modalidades de planos (ex: trimestral, funcional).
 
 ---
 
-### UC04 — Registrar Pagamento na Recepção
+### UC04 - Registrar Pagamento na Recepção
 ### Ator Principal
 Recepcionista
 ### Objetivo
@@ -86,7 +86,7 @@ Efetivar a quitação de mensalidades em dinheiro, cartão ou PIX.
 
 ---
 
-### UC05 — Controlar Acesso via Catraca
+### UC05 - Controlar Acesso via Catraca
 ### Ator Principal
 Sistema de Catraca (API)
 ### Objetivo
@@ -100,7 +100,7 @@ Validar a entrada física do aluno na unidade.
 2. O sistema verifica a regularidade financeira.
 3. Se o atraso for menor ou igual a 5 dias, o sistema envia comando de liberação.
 ### Fluxos Alternativos
-- **A1 — Inadimplência > 5 dias:** O sistema retorna comando de bloqueio.
+- **A1 - Inadimplência > 5 dias:** O sistema retorna comando de bloqueio.
 ### RF Relacionados
 - RF04, RF05
 ### RNF Relacionados
@@ -110,7 +110,7 @@ Validar a entrada física do aluno na unidade.
 
 ---
 
-### UC06 — Reservar Vaga em Aula
+### UC06 - Reservar Vaga em Aula
 ### Ator Principal
 Aluno
 ### Objetivo
@@ -124,7 +124,7 @@ Garantir uma vaga em aula coletiva.
 2. O sistema verifica se o limite de alunos foi atingido.
 3. O sistema confirma a reserva e envia notificação.
 ### Fluxos Alternativos
-- **A1 — Turma lotada:** O sistema impede o agendamento.
+- **A1 - Turma lotada:** O sistema impede o agendamento.
 ### RF Relacionados
 - RF06, RF10
 ### RN Relacionadas
@@ -132,7 +132,7 @@ Garantir uma vaga em aula coletiva.
 
 ---
 
-### UC07 — Cancelar Agendamento de Aula
+### UC07 - Cancelar Agendamento de Aula
 ### Ator Principal
 Aluno
 ### Objetivo
@@ -146,7 +146,7 @@ Desistir da vaga reservada em uma aula.
 2. O sistema valida se o horário atual é anterior a 1 hora do início da aula.
 3. O sistema confirma a exclusão do agendamento.
 ### Fluxos Alternativos
-- **A1 — Tempo limite excedido:** O sistema impede o cancelamento.
+- **A1 - Tempo limite excedido:** O sistema impede o cancelamento.
 ### RF Relacionados
 - RF06
 ### RN Relacionadas
@@ -154,7 +154,7 @@ Desistir da vaga reservada em uma aula.
 
 ---
 
-### UC08 — Registrar Presença em Aula
+### UC08 - Registrar Presença em Aula
 ### Ator Principal
 Instrutor
 ### Objetivo
@@ -176,7 +176,7 @@ Listar alunos presentes para controle de ocupação.
 
 ---
 
-### UC09 — Realizar Avaliação Física
+### UC09 - Realizar Avaliação Física
 ### Ator Principal
 Instrutor
 ### Objetivo
@@ -190,7 +190,7 @@ Registrar métricas corporais do aluno.
 2. Preenche peso, IMC e percentual de gordura.
 3. O sistema salva os dados e notifica o aluno da liberação.
 ### Fluxos Alternativos
-- **A1 — Aluno Irregular:** O sistema impede o registro da avaliação.
+- **A1 - Aluno Irregular:** O sistema impede o registro da avaliação.
 ### RF Relacionados
 - RF08, RF10
 ### RN Relacionadas
@@ -198,7 +198,7 @@ Registrar métricas corporais do aluno.
 
 ---
 
-### UC10 — Emitir Relatório de Inadimplência
+### UC10 - Emitir Relatório de Inadimplência
 ### Ator Principal
 Gerente
 ### Objetivo
@@ -218,7 +218,7 @@ Identificar alunos com débitos pendentes.
 
 ---
 
-### UC11 — Notificar Vencimento de Mensalidade
+### UC11 - Notificar Vencimento de Mensalidade
 ### Ator Principal
 Sistema (Automático)
 ### Objetivo
@@ -238,7 +238,7 @@ Alertar o aluno antes ou no dia do vencimento.
 
 ---
 
-### UC12 — Editar Plano Existente
+### UC12 - Editar Plano Existente
 ### Ator Principal
 Gerente
 ### Objetivo
@@ -258,7 +258,7 @@ Alterar valores ou descrições de planos ativos.
 
 ---
 
-### UC13 — Consultar Histórico de Acessos
+### UC13 - Consultar Histórico de Acessos
 ### Ator Principal
 Gerente
 ### Objetivo
@@ -277,7 +277,7 @@ Auditar as entradas de alunos por período.
 
 ---
 
-### UC14 — Desativar Plano
+### UC14 - Desativar Plano
 ### Ator Principal
 Gerente
 ### Objetivo
@@ -295,7 +295,7 @@ Retirar um plano da lista de vendas sem apagar o histórico.
 
 ---
 
-### UC15 — Visualizar Ocupação das Aulas
+### UC15 - Visualizar Ocupação das Aulas
 ### Ator Principal
 Gerente
 ### Objetivo
@@ -308,7 +308,7 @@ Analisar quais horários e aulas estão mais cheios.
 
 ---
 
-### UC16 — Emitir Relatório de Alunos Ativos
+### UC16 - Emitir Relatório de Alunos Ativos
 ### Ator Principal
 Gerente
 ### Objetivo
@@ -321,7 +321,7 @@ Contabilizar o total de clientes pagantes e regulares.
 
 ---
 
-### UC17 — Anexar Arquivo à Avaliação Física
+### UC17 - Anexar Arquivo à Avaliação Física
 ### Ator Principal
 Instrutor
 ### Objetivo
@@ -338,7 +338,7 @@ Incluir fotos ou exames externos ao registro do aluno.
 
 ---
 
-### UC18 — Atualizar Dados de Contato
+### UC18 - Atualizar Dados de Contato
 ### Ator Principal
 Recepcionista
 ### Objetivo
@@ -352,7 +352,7 @@ Manter informações do aluno em dia.
 
 ---
 
-### UC19 — Gerar Boletos para Pagamento Online
+### UC19 - Gerar Boletos para Pagamento Online
 ### Ator Principal
 Sistema (Automático/Aluno)
 ### Objetivo
@@ -366,7 +366,7 @@ Permitir o pagamento sem necessidade de ir à recepção.
 
 ---
 
-### UC20 — Verificar Regularidade do Aluno
+### UC20 - Verificar Regularidade do Aluno
 ### Ator Principal
 Sistema (Automático)
 ### Objetivo
