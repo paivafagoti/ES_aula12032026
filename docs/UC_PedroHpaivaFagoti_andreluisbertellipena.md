@@ -2,24 +2,23 @@
 ### Ator Principal
 Usuário (Aluno, Recepcionista, Instrutor, Gerente)
 ### Objetivo
-Permitir que o usuário acesse o sistema.
+Permitir que o usuário acesse o sistema com segurança.
 ### Pré-condições
 - Usuário deve possuir cadastro ativo.
 ### Pós-condições
-- Sessão iniciada com sucesso.
+- Sessão iniciada conforme perfil de acesso.
 ### Fluxo Principal
 1. O usuário informa e-mail e senha.
 2. O sistema valida as credenciais.
-3. O sistema autentica o usuário e redireciona para a tela inicial.
+3. O sistema identifica o perfil e redireciona para a interface correspondente.
 ### Fluxos Alternativos
 - **A1 — Senha incorreta:** O sistema exibe mensagem de erro.
-- **A2 — Conta bloqueada:** O sistema impede o login e instrui o usuário a recuperar o acesso.
 ### RF Relacionados
 - RF01
 ### RNF Relacionados
-- RNF01
+- RNF02, RNF04
 ### RN Relacionadas
-- RN01
+- RN06
 
 ---
 
@@ -27,128 +26,131 @@ Permitir que o usuário acesse o sistema.
 ### Ator Principal
 Recepcionista
 ### Objetivo
-Registrar um novo aluno no sistema.
+Registrar um novo aluno e seus dados contratuais.
 ### Pré-condições
 - Recepcionista autenticado.
 ### Pós-condições
-- Cadastro do aluno salvo no banco de dados.
+- Registro salvo na base de dados.
 ### Fluxo Principal
-1. O recepcionista solicita a criação de um novo cadastro.
-2. O sistema apresenta o formulário de dados pessoais.
-3. O recepcionista preenche nome, CPF, e-mail e telefone.
-4. O sistema valida os dados e confirma o cadastro.
-### Fluxos Alternativos
-- **A1 — CPF Inválido:** O sistema emite alerta e impede a gravação.
+1. O recepcionista insere dados pessoais, contato, endereço e escolhe o plano.
+2. O sistema valida se os campos obrigatórios estão preenchidos.
+3. O sistema confirma a gravação do registro.
 ### RF Relacionados
-- RF02
-### RN Relacionadas
-- RN02
-
----
-
-### UC03 — Matricular em Plano
-### Ator Principal
-Recepcionista
-### Objetivo
-Vincular um aluno a um plano de pagamento e acesso.
-### Pré-condições
-- Aluno cadastrado; Planos configurados no sistema.
-### Pós-condições
-- Matrícula ativa gerada.
-### Fluxo Principal
-1. O recepcionista busca o aluno pelo nome ou CPF.
-2. O sistema exibe os planos disponíveis.
-3. O recepcionista seleciona o plano (Mensal, Trimestral ou Anual).
-4. O sistema gera o contrato e a primeira cobrança.
-### RF Relacionados
-- RF03
-### RN Relacionadas
-- RN03
-
----
-
-### UC04 — Gerenciar Planos
-### Ator Principal
-Gerente
-### Objetivo
-Criar ou editar modalidades de planos e valores.
-### Pré-condições
-- Acesso de nível gerencial.
-### Pós-condições
-- Tabela de preços e planos atualizada.
-### Fluxo Principal
-1. O gerente acessa o menu de configurações de planos.
-2. O sistema lista os planos existentes.
-3. O gerente altera valores ou cria um novo plano com descrição de benefícios.
-4. O sistema salva as alterações.
-### RF Relacionados
-- RF04
-### RN Relacionadas
-- RN04
-
----
-
-### UC05 — Registrar Pagamento
-### Ator Principal
-Recepcionista
-### Objetivo
-Dar baixa em mensalidades pagas pelo aluno.
-### Pré-condições
-- Aluno com fatura em aberto.
-### Pós-condições
-- Status da fatura alterado para "Pago".
-### Fluxo Principal
-1. O recepcionista localiza a pendência financeira do aluno.
-2. O sistema exibe o valor total com possíveis multas.
-3. O recepcionista seleciona o método de pagamento (Dinheiro, Cartão ou PIX).
-4. O sistema confirma a transação e gera o recibo.
-### RF Relacionados
-- RF05
-### RN Relacionadas
-- RN05
-
----
-
-### UC06 — Controlar Acesso (Catraca)
-### Ator Principal
-Sistema de Catraca (API)
-### Objetivo
-Validar a entrada do aluno via RFID.
-### Pré-condições
-- Aluno aproximar tag/cartão na catraca.
-### Pós-condições
-- Log de acesso registrado; Catraca liberada ou travada.
-### Fluxo Principal
-1. A API da catraca envia o ID do RFID para o servidor.
-2. O sistema verifica se o aluno tem plano ativo e está adimplente.
-3. O sistema retorna o comando de liberação.
-### Fluxos Alternativos
-- **A1 — Inadimplência:** O sistema bloqueia a entrada e orienta procurar a recepção.
-### RF Relacionados
-- RF06
+- RF01, RF02
+### RNF Relacionados
+- RNF02
 ### RN Relacionadas
 - RN06
 
 ---
 
-### UC07 — Agendar Aula Coletiva
+### UC03 — Criar Novo Plano
+### Ator Principal
+Gerente
+### Objetivo
+Configurar novas modalidades de planos (ex: trimestral, funcional).
+### Pré-condições
+- Acesso de perfil Gerente.
+### Pós-condições
+- Novo plano disponível para venda na recepção.
+### Fluxo Principal
+1. O gerente define nome, valor e periodicidade do plano.
+2. O sistema registra o plano como "Ativo".
+### RF Relacionados
+- RF02
+### RN Relacionadas
+- RN06
+
+---
+
+### UC04 — Registrar Pagamento na Recepção
+### Ator Principal
+Recepcionista
+### Objetivo
+Efetivar a quitação de mensalidades em dinheiro, cartão ou PIX.
+### Pré-condições
+- Aluno possuir pendência gerada.
+### Pós-condições
+- Mensalidade marcada como paga; Regularidade atualizada.
+### Fluxo Principal
+1. O recepcionista seleciona o aluno e a fatura.
+2. Informa o método de pagamento.
+3. O sistema processa o valor integral.
+4. O sistema atualiza o status de acesso do aluno.
+### RF Relacionados
+- RF03, RF04
+### RNF Relacionados
+- RNF03
+### RN Relacionadas
+- RN04, RN07
+
+---
+
+### UC05 — Controlar Acesso via Catraca
+### Ator Principal
+Sistema de Catraca (API)
+### Objetivo
+Validar a entrada física do aluno na unidade.
+### Pré-condições
+- Aluno aproximar tag RFID na catraca.
+### Pós-condições
+- Acesso liberado ou bloqueado; Log de acesso gerado.
+### Fluxo Principal
+1. A catraca envia o ID via JSON para a API do sistema.
+2. O sistema verifica a regularidade financeira.
+3. Se o atraso for menor ou igual a 5 dias, o sistema envia comando de liberação.
+### Fluxos Alternativos
+- **A1 — Inadimplência > 5 dias:** O sistema retorna comando de bloqueio.
+### RF Relacionados
+- RF04, RF05
+### RNF Relacionados
+- RNF03, RNF06
+### RN Relacionadas
+- RN01
+
+---
+
+### UC06 — Reservar Vaga em Aula
 ### Ator Principal
 Aluno
 ### Objetivo
-Reservar vaga em aulas de horários fixos.
+Garantir uma vaga em aula coletiva.
 ### Pré-condições
-- Aluno logado no app; Plano ativo.
+- Aluno logado; Vagas disponíveis na aula.
 ### Pós-condições
-- Reserva confirmada na lista da aula.
+- Reserva efetuada e notificação enviada.
 ### Fluxo Principal
-1. O aluno acessa a grade de horários no app.
-2. O sistema exibe as vagas disponíveis.
-3. O aluno clica em "Agendar".
-4. O sistema confirma a vaga.
+1. O aluno escolhe a aula e o horário.
+2. O sistema verifica se o limite de alunos foi atingido.
+3. O sistema confirma a reserva e envia notificação.
 ### Fluxos Alternativos
-- **A1 — Limite de vagas atingido:** O sistema oferece lista de espera.
+- **A1 — Turma lotada:** O sistema impede o agendamento.
 ### RF Relacionados
-- RF07
+- RF06, RF10
+### RN Relacionadas
+- RN02
+
+---
+
+### UC07 — Cancelar Agendamento de Aula
+### Ator Principal
+Aluno
+### Objetivo
+Desistir da vaga reservada em uma aula.
+### Pré-condições
+- Aluno possuir reserva ativa.
+### Pós-condições
+- Vaga liberada para outros alunos.
+### Fluxo Principal
+1. O aluno solicita o cancelamento da reserva.
+2. O sistema valida se o horário atual é anterior a 1 hora do início da aula.
+3. O sistema confirma a exclusão do agendamento.
+### Fluxos Alternativos
+- **A1 — Tempo limite excedido:** O sistema impede o cancelamento.
+### RF Relacionados
+- RF06
+### RN Relacionadas
+- RN03
 
 ---
 
@@ -156,18 +158,21 @@ Reservar vaga em aulas de horários fixos.
 ### Ator Principal
 Instrutor
 ### Objetivo
-Confirmar o comparecimento dos alunos na aula.
+Listar alunos presentes para controle de ocupação.
 ### Pré-condições
 - Aula em andamento ou finalizada.
 ### Pós-condições
-- Status de presença atualizado para os alunos agendados.
+- Lista de presença salva.
 ### Fluxo Principal
-1. O instrutor acessa a lista de agendamento da aula específica.
-2. O sistema lista os nomes dos alunos.
-3. O instrutor marca os alunos presentes.
-4. O sistema salva o registro de frequência.
+1. O instrutor seleciona a aula no tablet/celular.
+2. O sistema apresenta a lista de alunos agendados.
+3. O instrutor marca os presentes e salva.
 ### RF Relacionados
-- RF08
+- RF07
+### RNF Relacionados
+- RNF04
+### RN Relacionadas
+- RN06
 
 ---
 
@@ -175,225 +180,204 @@ Confirmar o comparecimento dos alunos na aula.
 ### Ator Principal
 Instrutor
 ### Objetivo
-Coletar dados antropométricos do aluno.
+Registrar métricas corporais do aluno.
 ### Pré-condições
-- Aluno com horário marcado para avaliação.
+- Aluno estar ativo e regular.
 ### Pós-condições
-- Laudo de avaliação gerado no perfil do aluno.
+- Laudo disponível e notificação enviada ao aluno.
 ### Fluxo Principal
-1. O instrutor seleciona o aluno no sistema.
-2. O sistema abre o formulário de avaliação (peso, medidas, dobras).
-3. O instrutor preenche os campos e confirma.
-4. O sistema calcula o IMC e percentuais, salvando o resultado.
+1. O instrutor inicia o formulário de avaliação.
+2. Preenche peso, IMC e percentual de gordura.
+3. O sistema salva os dados e notifica o aluno da liberação.
+### Fluxos Alternativos
+- **A1 — Aluno Irregular:** O sistema impede o registro da avaliação.
+### RF Relacionados
+- RF08, RF10
+### RN Relacionadas
+- RN05, RN06
+
+---
+
+### UC10 — Emitir Relatório de Inadimplência
+### Ator Principal
+Gerente
+### Objetivo
+Identificar alunos com débitos pendentes.
+### Pré-condições
+- Acesso gerencial.
+### Pós-condições
+- Lista de inadimplentes exibida em tela.
+### Fluxo Principal
+1. O gerente solicita o relatório de inadimplência.
+2. O sistema filtra alunos com mensalidades vencidas.
+3. O sistema exibe o tempo de atraso de cada registro.
+### RF Relacionados
+- RF09
+### RN Relacionadas
+- RN06
+
+---
+
+### UC11 — Notificar Vencimento de Mensalidade
+### Ator Principal
+Sistema (Automático)
+### Objetivo
+Alertar o aluno antes ou no dia do vencimento.
+### Pré-condições
+- Mensalidade próxima da data de expiração.
+### Pós-condições
+- Mensagem enviada para o dispositivo do aluno.
+### Fluxo Principal
+1. O sistema varre a base de dados diariamente.
+2. Identifica faturas que vencem no dia.
+3. Dispara notificação push/e-mail para o aluno.
+### RF Relacionados
+- RF10
+### RNF Relacionados
+- RNF01
+
+---
+
+### UC12 — Editar Plano Existente
+### Ator Principal
+Gerente
+### Objetivo
+Alterar valores ou descrições de planos ativos.
+### Pré-condições
+- Perfil Gerente autenticado.
+### Pós-condições
+- Plano atualizado no banco de dados.
+### Fluxo Principal
+1. O gerente seleciona o plano.
+2. Altera o valor integral ou o nome.
+3. O sistema salva a nova configuração.
+### RF Relacionados
+- RF02
+### RN Relacionadas
+- RN06
+
+---
+
+### UC13 — Consultar Histórico de Acessos
+### Ator Principal
+Gerente
+### Objetivo
+Auditar as entradas de alunos por período.
+### Pré-condições
+- Acesso gerencial.
+### Pós-condições
+- Relatório de log apresentado.
+### Fluxo Principal
+1. O gerente seleciona um período de datas.
+2. O sistema lista todos os acessos registrados via API da catraca.
+### RF Relacionados
+- RF09
+### RNF Relacionados
+- RNF05
+
+---
+
+### UC14 — Desativar Plano
+### Ator Principal
+Gerente
+### Objetivo
+Retirar um plano da lista de vendas sem apagar o histórico.
+### Pré-condições
+- Plano estar atualmente ativo.
+### Pós-condições
+- Plano marcado como inativo.
+### Fluxo Principal
+1. O gerente localiza o plano.
+2. Altera o status para "Desativado".
+3. O sistema impede novas matrículas nesse plano.
+### RF Relacionados
+- RF02
+
+---
+
+### UC15 — Visualizar Ocupação das Aulas
+### Ator Principal
+Gerente
+### Objetivo
+Analisar quais horários e aulas estão mais cheios.
+### Fluxo Principal
+1. O gerente solicita relatório de ocupação.
+2. O sistema exibe a porcentagem de vagas preenchidas vs total.
 ### RF Relacionados
 - RF09
 
 ---
 
-### UC10 — Prescrever Treino
+### UC16 — Emitir Relatório de Alunos Ativos
+### Ator Principal
+Gerente
+### Objetivo
+Contabilizar o total de clientes pagantes e regulares.
+### Fluxo Principal
+1. O gerente acessa o módulo de relatórios.
+2. O sistema gera a contagem total de matrículas com status ativo.
+### RF Relacionados
+- RF09
+
+---
+
+### UC17 — Anexar Arquivo à Avaliação Física
 ### Ator Principal
 Instrutor
 ### Objetivo
-Montar a ficha de exercícios personalizada para o aluno.
+Incluir fotos ou exames externos ao registro do aluno.
 ### Pré-condições
-- Aluno cadastrado.
-### Pós-condições
-- Ficha de treino disponível no app do aluno.
+- UC09 em andamento.
 ### Fluxo Principal
-1. O instrutor acessa o perfil do aluno e seleciona "Novo Treino".
-2. O sistema abre a biblioteca de exercícios.
-3. O instrutor define séries, repetições e cargas.
-4. O sistema salva o treino com data de expiração.
+1. O instrutor seleciona a opção "Anexar Arquivo".
+2. O sistema faz o upload e vincula ao prontuário.
 ### RF Relacionados
-- RF10
+- RF08
+### RNF Relacionados
+- RNF02
 
 ---
 
-### UC11 — Consultar Treino
-### Ator Principal
-Aluno
-### Objetivo
-Visualizar os exercícios a serem realizados no dia.
-### Pré-condições
-- Treino prescrito pelo instrutor.
-### Pós-condições
-- Exibição dos dados do treino.
-### Fluxo Principal
-1. O aluno abre o aplicativo.
-2. O sistema identifica o dia da semana e o treino correspondente (ex: Treino A).
-3. O aluno visualiza a lista de exercícios e observações do instrutor.
-### RF Relacionados
-- RF11
-
----
-
-### UC12 — Gerar Relatório de Faturamento
-### Ator Principal
-Gerente
-### Objetivo
-Analisar as receitas da academia em determinado período.
-### Pré-condições
-- Acesso gerencial.
-### Pós-condições
-- Relatório em tela ou PDF gerado.
-### Fluxo Principal
-1. O gerente acessa o menu "Relatórios".
-2. O sistema solicita o período inicial e final.
-3. O gerente confirma a busca.
-4. O sistema consolida todos os pagamentos recebidos no intervalo.
-### RF Relacionados
-- RF12
-
----
-
-### UC13 — Cancelar Matrícula
+### UC18 — Atualizar Dados de Contato
 ### Ator Principal
 Recepcionista
 ### Objetivo
-Encerrar o vínculo contratual de um aluno.
-### Pré-condições
-- Aluno com matrícula ativa.
-### Pós-condições
-- Matrícula inativada; Acesso bloqueado.
+Manter informações do aluno em dia.
 ### Fluxo Principal
 1. O recepcionista busca o aluno.
-2. O sistema exibe o status da matrícula e possíveis multas de rescisão.
-3. O recepcionista confirma o cancelamento.
-4. O sistema atualiza o status para "Inativo".
+2. Altera telefone ou endereço.
+3. O sistema valida e salva.
 ### RF Relacionados
-- RF13
+- RF01
+
+---
+
+### UC19 — Gerar Boletos para Pagamento Online
+### Ator Principal
+Sistema (Automático/Aluno)
+### Objetivo
+Permitir o pagamento sem necessidade de ir à recepção.
+### Fluxo Principal
+1. O sistema gera o título de cobrança.
+2. O aluno acessa o link de pagamento.
+3. O sistema disponibiliza o boleto ou linha digitável.
+### RF Relacionados
+- RF03
+
+---
+
+### UC20 — Verificar Regularidade do Aluno
+### Ator Principal
+Sistema (Automático)
+### Objetivo
+Garantir que o status do aluno reflita seu estado financeiro real.
+### Pós-condições
+- Status atualizado para Ativo ou Inadimplente.
+### Fluxo Principal
+1. O sistema verifica pagamentos vinculados à matrícula.
+2. Compara a data de vencimento com a data atual.
+3. Se houver débito não pago, marca o aluno como irregular.
+### RF Relacionados
+- RF04
 ### RN Relacionadas
 - RN07
-
----
-
-### UC14 — Emitir Aviso de Inadimplência
-### Ator Principal
-Gerente
-### Objetivo
-Notificar alunos com mensalidades atrasadas.
-### Pré-condições
-- Existência de faturas vencidas.
-### Pós-condições
-- Notificação (E-mail/Push) enviada ao aluno.
-### Fluxo Principal
-1. O gerente solicita a listagem de inadimplentes.
-2. O sistema filtra todos os alunos com débitos > 5 dias.
-3. O gerente clica em "Notificar Todos".
-4. O sistema envia as comunicações automaticamente.
-### RF Relacionados
-- RF14
-
----
-
-### UC15 — Consultar Histórico de Acessos
-### Ator Principal
-Gerente
-### Objetivo
-Verificar o fluxo de pessoas na academia.
-### Pré-condições
-- Registros de catraca existentes.
-### Pós-condições
-- Lista de acessos exibida.
-### Fluxo Principal
-1. O gerente seleciona a opção "Histórico de Acesso".
-2. O sistema permite filtrar por aluno ou por data.
-3. O sistema exibe horários de entrada e saída.
-### RF Relacionados
-- RF15
-
----
-
-### UC16 — Gerenciar Cadastro de Instrutores
-### Ator Principal
-Gerente
-### Objetivo
-Admitir ou editar dados de funcionários técnicos.
-### Pré-condições
-- Acesso gerencial.
-### Pós-condições
-- Instrutor habilitado para prescrever treinos.
-### Fluxo Principal
-1. O gerente acessa "Gestão de Equipe".
-2. O sistema apresenta formulário para CREF, especialidades e horários.
-3. O gerente salva o cadastro.
-4. O sistema gera credenciais de acesso para o instrutor.
-### RF Relacionados
-- RF16
-
----
-
-### UC17 — Trancar Matrícula
-### Ator Principal
-Recepcionista
-### Objetivo
-Suspender temporariamente o plano do aluno.
-### Pré-condições
-- Aluno em dia com as mensalidades.
-### Pós-condições
-- Período de validade do plano prorrogado; Acesso suspenso.
-### Fluxo Principal
-1. O recepcionista acessa a matrícula do aluno.
-2. O sistema solicita o motivo e o prazo de trancamento.
-3. O sistema valida se o plano permite essa ação.
-4. O sistema confirma a pausa do contrato.
-### RF Relacionados
-- RF17
-### RN Relacionadas
-- RN08
-
----
-
-### UC18 — Alterar Senha
-### Ator Principal
-Usuário
-### Objetivo
-Permitir a troca da credencial de segurança.
-### Pré-condições
-- Usuário logado ou com acesso ao e-mail cadastrado.
-### Pós-condições
-- Senha atualizada no sistema.
-### Fluxo Principal
-1. O usuário acessa "Meu Perfil".
-2. O sistema solicita a senha atual e a nova senha (duas vezes).
-3. O sistema valida a complexidade da nova senha.
-4. O sistema confirma a alteração.
-### RF Relacionados
-- RF18
-
----
-
-### UC19 — Visualizar Gráfico de Evolução
-### Ator Principal
-Aluno
-### Objetivo
-Acompanhar o progresso dos resultados físicos.
-### Pré-condições
-- Ter pelo menos duas avaliações físicas realizadas.
-### Pós-condições
-- Gráficos comparativos exibidos no app.
-### Fluxo Principal
-1. O aluno acessa a aba "Evolução" no aplicativo.
-2. O sistema cruza os dados das avaliações anteriores.
-3. O sistema gera gráficos de peso, gordura e massa magra.
-### RF Relacionados
-- RF19
-
----
-
-### UC20 — Configurar Horários da Academia
-### Ator Principal
-Gerente
-### Objetivo
-Definir períodos de funcionamento e horários de pico.
-### Pré-condições
-- Acesso administrativo.
-### Pós-condições
-- Grade de funcionamento atualizada no sistema e app.
-### Fluxo Principal
-1. O gerente acessa "Configurações da Unidade".
-2. O sistema exibe os horários de segunda a domingo.
-3. O gerente altera os intervalos de abertura e fechamento.
-4. O sistema replica a informação para os usuários.
-### RF Relacionados
-- RF20
